@@ -1,3 +1,77 @@
 #board{
+    display:grid;
+    margin: auto;
+    --color:red;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: auto auto auto;
+    gap:calc(var(--boxside)*0.2);
+    background-image: radial-gradient(circle,black, var(--color), black, var(--color), black, var(--color));
+}
+:root{
+    --boxside:calc(min(1vh, 1vw)*20);
+}
+.wrapper{
+    background-color: black;
+    width: var(--boxside);
+    outline: solid black;
+    outline-width: calc(var(--boxside)*0.08);
     display:flex;
+    align-items: center;
+    justify-items: center;
+}
+.tile1,.tile0{
+    text-align: center;
+    --tile-color:aqua;
+    vertical-align: middle;
+    color: var(--tile-color);
+    background-color: black;
+
+
+    width: var(--boxside);
+    height: var(--boxside);
+    line-height: var(--boxside);
+    font-size: var(--boxside);
+    text-shadow: 0 0 calc(var(--boxside)*0.2) var(--tile-color);
+    border-radius: calc(var(--boxside)*0.1);
+
+    font-family: Arial;
+    user-select: none;
+    border: solid calc(var(--boxside)*0.01) white;
+    border-collapse: collapse;
+}
+.tile2{
+    text-align: center;
+    --tile-color:red;
+    vertical-align: middle;
+    color: var(--tile-color);
+    background-color: black;
+
+
+    width: var(--boxside);
+    height: var(--boxside);
+    line-height: var(--boxside);
+    font-size: var(--boxside);
+    text-shadow: 0 0 calc(var(--boxside)*0.2) var(--tile-color);
+    border-radius: calc(var(--boxside)*0.1);
+
+    
+    font-family: Arial;
+    user-select: none;
+    border: solid calc(var(--boxside)*0.01) white;
+    border-collapse: collapse;
+}
+.tile0:hover, .tile2:hover, .tile1:hover{
+    animation: expand 0.1s forwards;
+}
+
+@keyframes expand {
+    100%{
+        transform: scale(1.1);
+    }
+}
+#app{
+    display: flex;
+    height: 100%;
+    justify-content: center;
 }
