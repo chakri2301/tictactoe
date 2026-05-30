@@ -1,0 +1,44 @@
+:root{
+    --unit:calc(min(1vh, 1vw));
+}
+#app{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#title{
+    font-size: calc(10*var(--unit));
+    color: white;
+}
+.button2{
+    background-color: rgb(0, 24, 27);
+    padding: var(--unit);
+    border:solid white calc(0.1*var(--unit));
+    color:white;
+    border-radius: calc(0.5*var(--unit));
+    font-size: calc(5*var(--unit));
+    padding: calc(2*var(--unit));
+    border-radius: calc(3*var(--unit));
+}
+.button2:hover{
+    text-shadow: 0 0 3vh aqua;
+}
+.redDesign{
+    text-shadow: 0 0 5vh red;
+    animation: redAnim  5s infinite;
+}
+@keyframes redAnim {
+    50%{
+        text-shadow: 0 0 5vh aqua;
+    }
+}
+@keyframes blueAnim {
+    50%{
+        text-shadow: 0 0 5vh red;
+    }
+}
+.blueDesign{
+    text-shadow: 0 0 5vh aqua;
+    animation: blueAnim  5s infinite;
+}

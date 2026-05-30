@@ -101,3 +101,32 @@
     color:white;
     border-radius: 0.5vh;
 }
+.loadbox{
+    width:1vh;
+    height:0vh;
+    margin-left: 0.1vh;
+    margin-right: 0.1vh;
+    border-radius: 0.5vh;
+    background-color: yellow;
+    animation: LoadAnim 1s infinite;
+}
+#AiLoading{
+    display: flex;
+    align-items: center;
+}
+@keyframes LoadAnim {
+    50%{
+        height:2vh
+    }
+}
+#TopBar{
+    display: flex;
+    align-content: space-between;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+.textButton{
+    user-select: none;
+    font-size: 6vh;
+}

@@ -13,7 +13,7 @@ const completedLocations = [
   [[1, 4], [6, 8]],//for 7
   [[6, 7], [2, 5], [0, 4]],//for 8
 ]
-function App() {
+function App({switchScreen}:{switchScreen:()=>void}) {
   const [values, setValues] = useState(new Array(9).fill(0));
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [status, setStatus] = useState(1);
@@ -33,8 +33,8 @@ function App() {
     setCurrentPlayer(nextPlayer);
     setStatus(nextPlayer);
     if (CheckIfCompleted(values, idx, currentPlayer)) {
-      setStatus(currentPlayer+2);
-    }else if(filled == 8){
+      setStatus(currentPlayer + 2);
+    } else if (filled == 8) {
       setStatus(0);
     }
   }
@@ -43,20 +43,24 @@ function App() {
     setValues(new Array(9).fill(0));
     setCurrentPlayer(1);
   }
-  let statusText="";
+  let statusText = "";
   switch (status) {
-    case 0: statusText = "Tie";break;
-    case 1: statusText = "X turn";break;
-    case 2: statusText = "O turn";break;
-    case 3: statusText = "X won";break;   
-    case 4: statusText = "O won";break;
-    default:break;
+    case 0: statusText = "Tie"; break;
+    case 1: statusText = "X turn"; break;
+    case 2: statusText = "O turn"; break;
+    case 3: statusText = "X won"; break;
+    case 4: statusText = "O won"; break;
+    default: break;
   }
 
   return (
     <div id="app">
       <div id="gameArea">
-        <p id="status">{statusText}</p>
+        <div id="TopBar">
+          <span className='textButton' style={{color:"white"}} onClick={switchScreen}>&#x2190;</span>
+          <span id="status">{statusText}</span>
+          <span className='textButton'>&#x2192;</span>
+        </div>
         <div id="board" className={"board" + " " + "board" + currentPlayer}>{
           values.map((ele, index) => {
             return <Square idx={index} key={index} count={ele} onClick={handleClick} />
