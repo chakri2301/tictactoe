@@ -39,7 +39,7 @@ function App({gameValues, switchScreen }: {gameValues:GameValues, switchScreen: 
   const [name, setName] = useState(gameValues.name);
   const [values, setValues] = useState(gameValues.val);
   const [currentPlayer, setCurrentPlayer] = useState(gameValues.currentPlayer);
-  const [status, setStatus] = useState(gameValues.currentPlayer);
+  const [status, setStatus] = useState(gameValues.status);
 
   function handleClick(idx: number) {
     if (values[idx] != 0 || status == 0 || status == 3 || status == 4) return;
