@@ -1,0 +1,64 @@
+:root {
+    --unit: min(1vh, 1vw);
+}
+
+#HvsH,
+#HvsC {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+}
+
+.titleText {
+    color: white;
+    font-family: Verdana, sans-serif;
+    font-size:  calc(6*var(--unit)) ;
+}
+
+.titleText2 {
+    color: white;
+    font-family: Verdana, sans-serif;
+    font-size:  calc(5*var(--unit)) ;
+    padding-bottom:  calc(2*var(--unit)) ;
+}
+
+.textButton {
+    user-select: none;
+    font-size:  calc(6*var(--unit)) ;
+}
+
+#content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.gameNameText {
+    --color:red;
+    background-color: rgb(37, 37, 37);
+    font-size: calc(3*var(--unit));
+    border: solid calc(0.1*var(--unit)) color(--color);
+    margin-bottom: calc(1*var(--unit));
+    width: 100%;
+    text-align: center;
+    padding-top: calc(0.5*var(--unit));
+    padding-bottom: calc(0.5*var(--unit));
+    box-shadow: 0 0 calc(0.5*var(--unit)) var(--color);
+}
+
+.gameNameText:hover {
+    animation: textAnim 0.5s forwards;
+    cursor:pointer;
+}
+
+@keyframes textAnim {
+    100% {
+        box-shadow: calc(0.5*var(--unit)) calc(0.5*var(--unit)) calc(0.5*var(--unit)) var(--color);
+    }
+}
+.color1{
+    --color:red;
+}
+.color2{
+    --color:aqua;
+}

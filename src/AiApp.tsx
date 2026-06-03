@@ -13,12 +13,27 @@ const completedLocations = [
 	[[1, 4], [6, 8]],//for 7
 	[[6, 7], [2, 5], [0, 4]],//for 8
 ]
-function AiApp({switchScreen}:{switchScreen:()=>void}) {
-	console.log("Ai Active");
-	const [values, setValues] = useState(new Array(9).fill(0));
-	const [currentPlayer, setCurrentPlayer] = useState(1);
-	const [status, setStatus] = useState(-1);
-	const [isHumanX, setIsHumanX] = useState(true);
+export class GameAiValues {
+	public name: string;
+	public val: Array<number>;
+	public currentPlayer: number;
+	public currentStatus:number;
+	public isHumanX: Boolean;
+	constructor(gameName: string, val: Array<number>, currentPlayer: number, isHumanX: Boolean,currentStatus:number) {
+		this.val = val;
+		this.name = gameName;
+		this.currentPlayer = currentPlayer;
+		this.isHumanX = isHumanX;
+		this.currentStatus = currentStatus;
+	}
+}
+function AiApp({ switchScreen, gameAiValues }: { gameAiValues: GameAiValues, switchScreen: () => void }) {
+	const [name, setName] = useState(gameAiValues.name);
+	const [values, setValues] = useState(gameAiValues.val);
+	const [currentPlayer, setCurrentPlayer] = useState(gameAiValues.currentPlayer);
+	const [status, setStatus] = useState(gameAiValues.currentStatus);
+	console.log(status);
+	const [isHumanX, setIsHumanX] = useState(gameAiValues.isHumanX);
 	const [disabled, setDisabled] = useState(false);
 	function iterateGame(idx: number) {
 		if (values[idx] != 0 || status == 0 || status == 3 || status == 4) return;
@@ -59,7 +74,7 @@ function AiApp({switchScreen}:{switchScreen:()=>void}) {
 				}
 			}
 		);
-		console.log(emptyCells);
+		//console.log(emptyCells);
 		let bestMove = emptyCells[0];
 		let max = -2;
 		for (let i = 0; i < emptyCells.length; i++) {
@@ -113,6 +128,11 @@ function AiApp({switchScreen}:{switchScreen:()=>void}) {
 		setValues(new Array(9).fill(0));
 		setCurrentPlayer(1);
 		setIsHumanX(true);
+		setName("");
+	}
+	function DeleteAndExit() {
+		localStorage.removeItem("2" + name);
+		switchScreen();
 	}
 	function setAiX() {
 		setStatus(2);
@@ -129,13 +149,22 @@ function AiApp({switchScreen}:{switchScreen:()=>void}) {
 		case 4: statusText = "O won"; break;
 		default: break;
 	}
-
+	function SaveAndExit() {
+		let saved = Object.keys(localStorage);
+		let name = window.prompt("Game name ?");
+		while (name == null || name == "" || saved.includes("2" + name)) {
+			name = window.prompt("Please enter a new name ?");
+		}
+		localStorage.setItem("2" + name, JSON.stringify(new GameAiValues(name, values, currentPlayer, isHumanX, status)));
+		switchScreen();
+	}
 	return (
 		<div id="app">
 			<div id="gameArea">
+				<span className='titleText3'>{name}</span>
 				<div id="TopBar">
 					<span className='textButton' style={{ color: "white" }} onClick={switchScreen}>&#x2190;</span>
-					<span id="status">{statusText}</span>
+					<span className='titleText'>{statusText}</span>
 					<span className='textButton'>&#x2192;</span>
 				</div>
 				<button className='button1' onClick={setAiX} style={{ display: (status == -1) ? "block" : "none" }}>Click To play as O</button>
@@ -149,9 +178,15 @@ function AiApp({switchScreen}:{switchScreen:()=>void}) {
 				<div id="board" className={"board" + " " + "board" + currentPlayer}>{
 					values.map((ele, index) => {
 						return <Square idx={index} key={index} count={ele} disabled={disabled} onClick={iterateGame} />
-					})}
+					}
+					)
+				}
 				</div>
-				<button className="button1" onClick={resetValues}>Reset</button>
+				<div id="Controls">
+					{(name == "") ?<button className="button1" onClick={SaveAndExit}>Save And Exit</button>:""}
+					<button className="button1" onClick={resetValues}>Reset</button>
+					{(name != "") ? <button className="button1" onClick={DeleteAndExit}>Delete and Exit</button> : ""}
+				</div>
 			</div>
 		</div>
 	)
